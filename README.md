@@ -35,10 +35,10 @@ If the queue is full, new requests will be discarded.
 
 Example:
 We have rate limiter with a limit of two requests per minute
-["request_1"]
+`["request_1"]`
 
 We want to process request_2 and add it to the queue
-["request_1", "request_2"]
+`["request_1", "request_2"]`
 
 If after this we want to add a new request request_3 to the queue, it will be discarded
 
