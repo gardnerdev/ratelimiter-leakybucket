@@ -3,7 +3,9 @@
 import asyncio
 from time import sleep
 import time
+import math
 class LeakyBucket:
+    
     def __init__(self, rate_limit: int) -> None:
         self.rate_limit = rate_limit    # rate_limit parameter which is the number of requests per second
         self.token_queue = asyncio.Queue(rate_limit) #tokens_queue queue with a max size of rate_limit
@@ -54,3 +56,12 @@ class LeakyBucket:
             
             await asyncio.sleep(consumption_rate)
 
+
+    @staticmethod
+    def get_tokens_amount_to_consume(consumption_rate, current_consumption_time, last_consumption_time, total_tokens):
+        time_from_last_consumption = current_consumption_time - last_consumption_time # time between iterations
+        calculated_tokens_to_consume = math.floor(time_from_last_consumption/consumption_rate)  # floor because we can't consume 3.5 tokens 
+                                                                                                # from queue 
+        tokens_to_consume = min(total_tokens, calculated_tokens_to_consume) # we can't consume more tokens than there are in the queue
+        return tokens_to_consume
+    
