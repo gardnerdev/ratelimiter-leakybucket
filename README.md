@@ -53,10 +53,10 @@ Cons:
 
 # Task
 
-Implement the leaky bucket algorithm with known capacity  of the bucket (constant) and rate_limit - total
-number of requests that can land in a bucket.
+Implement the leaky bucket algorithm with known capacity  of the bucket - rate_limit - total
+number of requests that can land in a bucket. 
 
-The bucket is leaking with constant rate.
+The bucket is leaking with constant rate (consumption rate).
 
 
 Whenever a new request gets in, the algorithm performs the following actions:
@@ -69,7 +69,7 @@ Otherwise, add the request's cost to the bucket, and return True
 
 # Solution 
 The one trying to send a request must add a token to the bucket first (like paying a tax) meanwhile a token is taken out of the bucket at a constant rate.
-In this case, when a bucket is full a request needs to wait until a new token can be added, and when the bucket is empty no tokens are taken out 
+In this case, when a bucket is full a request needs to wait until a new token can be added, and when the bucket is empty no tokens are taken out.
 We need a queue to hold the total amount of tokens for requests allowed at any given time.
 The max number of tokens is the rate limit.
 If we want to create a request we first try to add a token to the queue.
